@@ -4,12 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-@TeleOp(name="teleop")
+@Autonomous(name="auto")
 
-public class teleop extends LinearOpMode{
+public class autoTest extends LinearOpMode{
     private DcMotor frontLeft;
     private DcMotor rearLeft;
     private DcMotor rearRight;
@@ -29,36 +27,61 @@ public class teleop extends LinearOpMode{
         servo = hardwareMap.crservo.get("servo");
 
 
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        rearLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        rearRight.setDirection(DcMotor.Direction.REVERSE);
+
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
         //motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+waitForStart();
+driveForward(0.5,1000);
+turnLeftTime(0.5,1000);
 
 
 
-        waitForStart();
-
-        while (opModeIsActive()){
-
-           rearLeft.setPower(gamepad1.left_stick_y);
-           frontLeft.setPower(gamepad1.left_stick_y);
-           frontRight.setPower(gamepad1.right_stick_y);
-           rearRight.setPower(gamepad1.right_stick_y);
-           servo.setPower(gamepad1.left_trigger);
 
 
-
-        }
 
 
     }
 
+    public void driveForward(double speed,long time){
+        frontLeft.setPower(speed);
+        frontRight.setPower(speed);
+        rearLeft.setPower(speed);
+        rearRight.setPower(speed);
+        sleep(time);
+        stopDriving();
+
+
+    }
+
+
+    public void stopDriving(){
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        rearLeft.setPower(0);
+        rearRight.setPower(0);
+    }
+
+
+    public void turnLeftTime(double speed,long time){
+        frontLeft.setPower(-speed);
+        frontRight.setPower(speed);
+        rearLeft.setPower(-speed);
+        rearRight.setPower(speed);
+        sleep(time);
+        stopDriving();
+
+
+    }
 }
+
+
+
