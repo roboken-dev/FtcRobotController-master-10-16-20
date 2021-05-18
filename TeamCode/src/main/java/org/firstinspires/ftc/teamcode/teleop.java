@@ -10,51 +10,20 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 @TeleOp(name="teleop")
 
 public class teleop extends LinearOpMode{
-    private DcMotor frontLeft;
-    private DcMotor rearLeft;
-    private DcMotor rearRight;
-    private DcMotor frontRight;
-
-    private CRServo servo;
-    @Override
+    donkeybot robot = new donkeybot();
 
 
     public void runOpMode()
     {
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        rearLeft = hardwareMap.dcMotor.get("rearLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        rearRight = hardwareMap.dcMotor.get("rearRight");
-
-        servo = hardwareMap.crservo.get("servo");
-
-
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        rearLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        //motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-
-
-
+        robot.init(hardwareMap,this);
         waitForStart();
 
         while (opModeIsActive()){
 
-           rearLeft.setPower(gamepad1.left_stick_y);
-           frontLeft.setPower(gamepad1.left_stick_y);
-           frontRight.setPower(gamepad1.right_stick_y);
-           rearRight.setPower(gamepad1.right_stick_y);
-           servo.setPower(gamepad1.left_trigger);
-
-
+           robot.rearLeft.setPower(gamepad1.left_stick_y);
+          robot.frontLeft.setPower(gamepad1.left_stick_y);
+           robot.frontRight.setPower(gamepad1.right_stick_y);
+           robot.rearRight.setPower(gamepad1.right_stick_y);
 
         }
 
