@@ -34,8 +34,6 @@ public class teleop extends LinearOpMode{
             telemetry.addData("hue",hsvValues[0]);
             telemetry.update();
 
-
-
         }
 
 
