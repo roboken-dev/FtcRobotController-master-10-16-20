@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -28,6 +29,9 @@ public class donkeybot {
     private CRServo servo;
 
 
+    public ColorSensor sensorColor;
+
+
     HardwareMap hwMap = null;
 
     public donkeybot (){}
@@ -43,6 +47,8 @@ public class donkeybot {
         rearRight = hwMap.dcMotor.get("rearRight");
 
         servo = hwMap.crservo.get("servo");
+
+        sensorColor = hwMap.get(ColorSensor.class,"colorSensor");
 
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -111,6 +117,7 @@ public class donkeybot {
         }
         stopDriving();
     }
+
 
 
 
