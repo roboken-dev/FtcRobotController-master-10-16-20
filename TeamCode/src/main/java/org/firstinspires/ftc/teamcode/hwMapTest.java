@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode;
+import android.graphics.Color;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,8 +24,8 @@ public class hwMapTest extends LinearOpMode{
         robot.init(hardwareMap,this);
 
         waitForStart();
-        robot.driveForward(0.5,1000);
-        robot.turnLeftAngle(1,90,this);
+
+       robot.driveUntilColor(0.3,150 ,this);
 
     }
 

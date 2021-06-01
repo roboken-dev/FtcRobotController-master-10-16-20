@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -69,17 +71,38 @@ public class donkeybot {
     }
 
 
-    public void driveForward(double speed,long time) throws InterruptedException {
+    public void driveForwardTime(double speed,long time) throws InterruptedException {
         frontLeft.setPower(speed);
         frontRight.setPower(speed);
         rearLeft.setPower(speed);
         rearRight.setPower(speed);
         Thread.sleep(time);
         stopDriving();
-
-
     }
 
+
+    public void driveForward(double speed) throws InterruptedException {
+        frontLeft.setPower(speed);
+        frontRight.setPower(speed);
+        rearLeft.setPower(speed);
+        rearRight.setPower(speed);
+    }
+
+
+    public void driveUntilColor(double speed, double colorValue, LinearOpMode opmode) throws InterruptedException {
+        float hsvValues[]={300F,300F,300F};
+        Color.RGBToHSV(sensorColor.red()*255, sensorColor.green()*255,sensorColor.blue()*255,hsvValues);
+
+        driveForward(speed);
+//&&hsvValues[0]>(colorValue-5.0)
+        while (hsvValues[0]<(colorValue)&&!opmode.isStopRequested())
+        {
+            Color.RGBToHSV(sensorColor.red()*255, sensorColor.green()*255,sensorColor.blue()*255,hsvValues);
+        }
+
+
+        stopDriving();
+    }
 
     public void stopDriving(){
         frontLeft.setPower(0);
