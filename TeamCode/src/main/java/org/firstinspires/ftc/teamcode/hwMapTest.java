@@ -25,7 +25,7 @@ public class hwMapTest extends LinearOpMode{
 
         waitForStart();
 
-       robot.driveUntilColor(0.3,150 ,this);
+       robot.driveUntilTouch(0.3,this);
 
     }
 

@@ -7,9 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -32,6 +34,7 @@ public class donkeybot {
 
 
     public ColorSensor sensorColor;
+    public DigitalChannel sensorTouch;
 
 
     HardwareMap hwMap = null;
@@ -51,6 +54,8 @@ public class donkeybot {
         servo = hwMap.crservo.get("servo");
 
         sensorColor = hwMap.get(ColorSensor.class,"colorSensor");
+        sensorTouch = hwMap.get(DigitalChannel.class,"touchSensor");
+
 
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -64,8 +69,6 @@ public class donkeybot {
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
-
-
 
 
     }
@@ -86,6 +89,21 @@ public class donkeybot {
         frontRight.setPower(speed);
         rearLeft.setPower(speed);
         rearRight.setPower(speed);
+    }
+
+    public void driveUntilTouch(double speed, LinearOpMode opmode) throws InterruptedException
+    {
+        driveForward(speed);
+        while (sensorTouch.getState()==true&&!opmode.isStopRequested())
+        {
+            if (sensorTouch.getState() == true) {
+                opmode.telemetry.addData("Digital Touch", "Is Not Pressed");
+            } else {
+                opmode.telemetry.addData("Digital Touch", "Is Pressed");
+            }
+            opmode.telemetry.update();
+        }
+        stopDriving();
     }
 
 
